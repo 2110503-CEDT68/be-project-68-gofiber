@@ -4,9 +4,10 @@ const User = require('../models/User');
 // @route   POST /auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
-    // Get body request
     try {
+        // Get body request
         const {name, telephone, email, password, role} = req.body;
+
         // Register
         const user = await User.create({
             name,
@@ -16,9 +17,13 @@ exports.register = async (req, res, next) => {
             role
         });
 
+        // Create token for JWT
+        const token = user.getSignedJwtToken();
+
         res.status(201).json({
             success: true,
-            data: user
+            data: user,
+            token
         });
     }catch (err) {
         res.status(400).json({
