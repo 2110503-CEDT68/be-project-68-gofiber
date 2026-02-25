@@ -93,7 +93,7 @@ exports.login = async (req, res, next) => {
 };
 
 // @desc    Get current Logged in user
-// @route   POST /auth/me
+// @route   GET /auth/me
 // @access  Private
 exports.me = async (req, res, next) => {
     // Find user by id
@@ -104,3 +104,18 @@ exports.me = async (req, res, next) => {
         data: user
     });
 };
+
+// @desc    Logout / clear cookie
+// @route   GET /auth/logout
+// @access  Private
+exports.logout = async (req, res, next) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10*1000),
+        httpOnly: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: {}
+    });
+}
