@@ -18,7 +18,7 @@ app.use(cookieParser());
 const auth = require('./routes/auth');
 
 // Router
-app.use('/auth', auth);
+app.use('/api/auth', auth);
 app.use('/api/bookings', bookings);
 
 // Server port and listen

@@ -38,11 +38,12 @@
               }
             },
             "url": {
-              "raw": "{{Root}}/auth/register",
+              "raw": "{{Root}}/api/auth/register",
               "host": [
                 "{{Root}}"
               ],
               "path": [
+                "api",
                 "auth",
                 "register"
               ]
@@ -78,11 +79,12 @@
               }
             },
             "url": {
-              "raw": "{{Root}}/auth/login",
+              "raw": "{{Root}}/api/auth/login",
               "host": [
                 "{{Root}}"
               ],
               "path": [
+                "api",
                 "auth",
                 "login"
               ]
@@ -106,11 +108,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{Root}}/auth/me",
+              "raw": "{{Root}}/api/auth/me",
               "host": [
                 "{{Root}}"
               ],
               "path": [
+                "api",
                 "auth",
                 "me"
               ]
@@ -147,11 +150,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{Root}}/auth/logout",
+              "raw": "{{Root}}/api/auth/logout",
               "host": [
                 "{{Root}}"
               ],
               "path": [
+                "api",
                 "auth",
                 "logout"
               ]
