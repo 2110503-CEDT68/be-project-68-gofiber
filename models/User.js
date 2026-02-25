@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Please add an email'],
-        unique: true,
+        unique: [true, 'This email is already used'],
         match: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             'Please add a valid email'
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please add a password'],
-        minlength: 6,
+        minlength: [6, 'Password should long more than 5'],
         select: false
     },
     resetPasswordToken: String,
@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Encrypt password using bcrypt
-UserSchema.pre('save', async (next) => {
+UserSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
