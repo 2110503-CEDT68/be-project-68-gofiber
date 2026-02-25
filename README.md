@@ -11,3 +11,8 @@ This project is final project in Software Development Practice class
 - The system shall allow the admin to view any bookings.
 - The system shall allow the admin to edit any bookings.
 - The system shall allow the admin to delete any bookings.
+
+## Project Team
+- [6833295221 Auraion Pinsiri](https://github.com/bmybest)
+- [6833085821 Natpakan Sainam](https://github.com/EnxFad)
+- [6833063021 Thitipong Phuangphet](https://github.com/Thitipong-PP)
