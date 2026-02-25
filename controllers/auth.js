@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
             role
         });
 
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             data: user
         });
