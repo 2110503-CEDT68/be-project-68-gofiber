@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const bookings = require('./routes/bookings');
+const cookieParser = require('cookie-parser');
 
 // Read env file
 dotenv.config({ path: './config/config.env' });
@@ -11,6 +12,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 // Route files
 const auth = require('./routes/auth');
