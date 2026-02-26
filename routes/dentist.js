@@ -11,9 +11,12 @@ const {
 
 // Router
 const router = express.Router();
+const reviewRouter = require('./reviews');
 
 // Auth Middleware
 const {protect, authorize} = require('../middleware/auth');
+
+router.use('/:dentistId/reviews/',reviewRouter);
 
 // Path and method
 router.route('/')
