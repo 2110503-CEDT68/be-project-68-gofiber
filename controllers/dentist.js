@@ -1,3 +1,4 @@
+const Booking = require('../models/Booking');
 const Dentist = require('../models/Dentist');
 
 // @desc    View all dentist
@@ -120,13 +121,16 @@ exports.updateDentist = async (req, res, next) => {
 exports.deleteDentist = async (req, res, next) => {
     try {
         // Find dentist by id and delete
-        const dentist = await Dentist.findByIdAndDelete(req.params.id);
+        const dentist = await Dentist.findById(req.params.id);
 
         // Don't find dentist
         if (!dentist) return res.status(404).json({
             success: false,
             message: `Dentist not found`
         });
+
+        await Booking.deleteMany({dentist: req.params.id});
+        await Dentist.deleteOne({_id: req.params.id});
 
         res.status(200).json({
             success: true,
