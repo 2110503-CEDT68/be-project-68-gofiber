@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Booking Schema
 const BookingSchema = new mongoose.Schema({
     bookingDate: {
         type: Date,
@@ -8,7 +9,7 @@ const BookingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true
+        required: [true, 'Please add a user']
     },
     dentist: {
         type: mongoose.Schema.ObjectId,

@@ -1,4 +1,6 @@
 const express = require('express');
+
+// Controller file
 const {
     getBookings,
     getBooking,
@@ -7,12 +9,13 @@ const {
     deleteBooking
 } = require('../controllers/bookings');
 
+// Router
 const router = express.Router();
 
+// Path and method
 router.route('/')
     .get(getBookings)
     .post(createBooking);
-
 
 router.route('/:id')
     .get(getBooking)

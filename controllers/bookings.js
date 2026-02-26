@@ -2,9 +2,10 @@ const Booking = require('../models/Booking');
 
 // @desc    View all bookings
 // @route   GET /api/bookings
-// @access  Private
+// @access  Private only admin
 exports.getBookings = async (req, res, next) => {
     try {
+        // Get all booking in database
         const bookings = await Booking.find();
 
         res.status(200).json({
@@ -12,19 +13,24 @@ exports.getBookings = async (req, res, next) => {
             count: bookings.length,
             data: bookings
         });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Cannot find bookings' });
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Cannot find bookings"
+        });
     }
 };
 
-// @desc    View single booking
+// @desc    View a booking
 // @route   GET /api/bookings/:id
 // @access  Private
 exports.getBooking = async (req, res, next) => {
     try {
+        // Find booking by id
         const booking = await Booking.findById(req.params.id);
 
+        // Don't find booking
         if (!booking) {
             return res.status(404).json({ success: false, message: `Booking not found` });
         }
@@ -33,37 +39,62 @@ exports.getBooking = async (req, res, next) => {
             success: true,
             data: booking
         });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Cannot find booking' });
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Cannot find booking'
+        });
     }
 };
 
-// @desc    Create booking
+// @desc    Create a booking
 // @route   POST /api/bookings
-// @access  Private
+// @access  Private only user
 exports.createBooking = async (req, res, next) => {
     try {
-        const booking = await Booking.create(req.body);
+        // Get body request
+        const {bookingDate, user, dentist} = req.body;
+
+        // Create a booking in database
+        const booking = await Booking.create(
+            bookingDate,
+            user,
+            dentist
+        );
 
         res.status(201).json({
             success: true,
             data: booking
         });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Cannot create booking' });
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Cannot create booking'
+        });
     }
 };
 
-// @desc    Edit booking
+// @desc    Edit a booking
 // @route   PUT /api/bookings/:id
 // @access  Private
 exports.updateBooking = async (req, res, next) => {
     try {
-        const booking = await Booking.findByIdAndUpdate(req.params.id, req.body, {
+        // Get body request
+        const {bookingDate, user, dentist} = req.body;
+
+        // Find booking by id and update
+        const booking = await Booking.findByIdAndUpdate(req.params.id, {
+            bookingDate,
+            user,
+            dentist
+        }, {
             new: true,
             runValidators: true
         });
 
+        // Don't find booking
         if (!booking) {
             return res.status(404).json({ success: false, message: `Booking not found` });
         }
@@ -72,9 +103,12 @@ exports.updateBooking = async (req, res, next) => {
             success: true,
             data: booking
         });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Cannot update booking' });
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Cannot update booking'
+        });
     }
 };
 
@@ -83,8 +117,10 @@ exports.updateBooking = async (req, res, next) => {
 // @access  Private
 exports.deleteBooking = async (req, res, next) => {
     try {
+        // Find booking by id and delete
         const booking = await Booking.findByIdAndDelete(req.params.id);
 
+        // Don't find booking
         if (!booking) {
             return res.status(404).json({ success: false, message: `Booking not found` });
         }
@@ -93,8 +129,11 @@ exports.deleteBooking = async (req, res, next) => {
             success: true,
             data: {}
         });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Cannot delete booking' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Cannot delete booking'
+        });
     }
 };

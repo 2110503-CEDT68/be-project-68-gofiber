@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Dentist Schema
 const DentistSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -8,7 +9,8 @@ const DentistSchema = new mongoose.Schema({
     },
     yearsOfExperience: {
         type: Number,
-        required: [true, 'Please add years of experience']
+        required: [true, 'Please add years of experience'],
+        min: 0
     },
     areaOfExpertise: {
         type: String,
