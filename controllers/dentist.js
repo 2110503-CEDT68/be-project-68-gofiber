@@ -1,5 +1,6 @@
 const Booking = require('../models/Booking');
 const Dentist = require('../models/Dentist');
+const Review = require('../models/Review');
 
 // @desc    View all dentist
 // @route   GET /api/dentist
@@ -131,6 +132,7 @@ exports.deleteDentist = async (req, res, next) => {
 
         await Booking.deleteMany({dentist: req.params.id});
         await Dentist.deleteOne({_id: req.params.id});
+        await Review.deleteMany({dentist: req.params.id});
 
         res.status(200).json({
             success: true,
