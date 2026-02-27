@@ -18,4 +18,14 @@ const DentistSchema = new mongoose.Schema({
     }
 });
 
+DentistSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'dentist',
+  justOne: false
+});
+
+DentistSchema.set('toJSON', { virtuals: true });
+DentistSchema.set('toObject', { virtuals: true });
+
 module.exports = mongoose.model('Dentist', DentistSchema);

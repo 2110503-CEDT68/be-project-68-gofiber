@@ -15,7 +15,7 @@ exports.getDentists = async (req, res, next) => {
             count: dentists.length,
             data: dentists
         });
-    }catch (err) {
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             success: false,
@@ -30,7 +30,7 @@ exports.getDentists = async (req, res, next) => {
 exports.getDentist = async (req, res, next) => {
     try {
         // Find dentist by id
-        const dentist = await Dentist.findById(req.params.id);
+        const dentist = await Dentist.findById(req.params.id).populate('reviews');
 
         // Don't find dentist
         if (!dentist) return res.status(404).json({
@@ -42,7 +42,7 @@ exports.getDentist = async (req, res, next) => {
             success: true,
             data: dentist
         });
-    }catch (err) {
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             success: false,
@@ -57,7 +57,7 @@ exports.getDentist = async (req, res, next) => {
 exports.createDentist = async (req, res, next) => {
     try {
         // Get body request
-        const {name, yearsOfExperience, areaOfExpertise} = req.body;
+        const { name, yearsOfExperience, areaOfExpertise } = req.body;
 
         // Create a dentist in database
         const dentist = await Dentist.create({
@@ -70,7 +70,7 @@ exports.createDentist = async (req, res, next) => {
             success: true,
             data: dentist
         });
-    }catch (err) {
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             success: false,
@@ -85,14 +85,14 @@ exports.createDentist = async (req, res, next) => {
 exports.updateDentist = async (req, res, next) => {
     try {
         // Get body request
-        const {name, yearsOfExperience, areaOfExpertise} = req.body;
+        const { name, yearsOfExperience, areaOfExpertise } = req.body;
 
         // Find dentist by id and update
         const dentist = await Dentist.findByIdAndUpdate(req.params.id, {
             name,
             yearsOfExperience,
             areaOfExpertise
-        },{
+        }, {
             new: true,
             runValidators: true
         });
@@ -107,7 +107,7 @@ exports.updateDentist = async (req, res, next) => {
             success: true,
             data: dentist
         });
-    }catch (err) {
+    } catch (err) {
         console.log(err);
         res.status(500).json({
             success: false,
@@ -130,9 +130,9 @@ exports.deleteDentist = async (req, res, next) => {
             message: `Dentist not found`
         });
 
-        await Booking.deleteMany({dentist: req.params.id});
-        await Dentist.deleteOne({_id: req.params.id});
-        await Review.deleteMany({dentist: req.params.id});
+        await Booking.deleteMany({ dentist: req.params.id });
+        await Dentist.deleteOne({ _id: req.params.id });
+        await Review.deleteMany({ dentist: req.params.id });
 
         res.status(200).json({
             success: true,
